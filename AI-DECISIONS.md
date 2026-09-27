@@ -31,3 +31,15 @@ Este archivo registra decisiones técnicas en las que se utilizó asistencia de 
 - Verificación realizada: revisión local de la estructura y del estado de Git; no se ejecutaron pruebas de aplicación porque todavía no existe código de aplicación; se modificó un poco el readme.
 - Decisión y motivos: mantener `frontend/`, `backend/`, `docs/architecture/` y `.github/` como base para el MVP.
 - Responsable de la revisión: Braian.
+
+### AD-002 — Base inicial del backend
+
+- Fecha: 2026-09-27
+- Issue: [#4 Inicializar backend Node.js](https://github.com/cbraian42/Edux/issues/4)
+- Estado: Aprobada
+- Contexto y problema: hace falta una base de Node.js y TypeScript para desarrollar funciones Lambda sin definir todavía el despliegue ni la lógica de negocio.
+- Aporte de la IA: se propuso configurar TypeScript, ESLint, scripts de trabajo y una función `health` mínima con respuesta compatible con API Gateway HTTP API.
+- Alternativas consideradas: incorporar desde ahora un framework o herramientas de despliegue.
+- Verificación realizada: `npm run typecheck`, `npm run lint`, `npm run build` e invocación local del handler compilado.
+- Decisión y motivos: Se mantuvo una estructura sin dependencias de ejecución hasta definir la estrategia de infraestructura. La estructura mínima permite sumar funciones sin comprometer todavía la configuración de AWS.
+- Responsable de la revisión: Braian.

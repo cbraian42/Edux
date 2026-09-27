@@ -55,7 +55,11 @@ El flujo previsto es **docente → cliente web → API → lógica de negocio �
 └── README.md
 ```
 
-Los directorios contienen archivos `.gitkeep` temporales para que Git los conserve hasta que tengan contenido propio.
+Los directorios todavía vacíos contienen archivos `.gitkeep` temporales para que Git los conserve hasta que tengan contenido propio.
+
+## Backend local
+
+El [README del backend](backend/README.md) explica los requisitos, la instalación con `npm ci`, los scripts de desarrollo y validación, y cómo invocar localmente la función Lambda mínima.
 
 ## Forma de trabajo
 
