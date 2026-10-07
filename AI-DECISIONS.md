@@ -63,3 +63,16 @@ Este archivo registra decisiones técnicas en las que se utilizó asistencia de 
   - Excluir agenda detallada y sesiones futuras precreadas; desactivar un curso conserva su información histórica.
   - Diferir tipos físicos, migraciones y detalles de implementación para las tareas posteriores.
 - Responsable de la revisión: Milagros; pendiente de aprobación mediante revisión del PR.
+
+### AD-003 — Base inicial del backend
+
+- Fecha: 2026-09-27
+- Issue: [#4 Inicializar backend Node.js](https://github.com/cbraian42/Edux/issues/4)
+- Estado: Aprobada
+- Contexto y problema: hace falta una base de Node.js y TypeScript para desarrollar funciones Lambda sin definir todavía el despliegue ni la lógica de negocio.
+- Aporte de la IA: se propuso configurar TypeScript, ESLint, scripts de trabajo y una función `health` mínima con respuesta compatible con API Gateway HTTP API.
+- Alternativas consideradas: incorporar desde ahora un framework o herramientas de despliegue.
+- Verificación realizada: `npm run typecheck`, `npm run lint`, `npm run build` e invocación local del handler compilado.
+- Decisión y motivos: Se mantuvo una estructura sin dependencias de ejecución hasta definir la estrategia de infraestructura. La estructura mínima permite sumar funciones sin comprometer todavía la configuración de AWS.
+- Responsable de la revisión: Braian.
+
