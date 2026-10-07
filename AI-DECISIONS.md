@@ -31,3 +31,35 @@ Este archivo registra decisiones técnicas en las que se utilizó asistencia de 
 - Verificación realizada: revisión local de la estructura y del estado de Git; no se ejecutaron pruebas de aplicación porque todavía no existe código de aplicación; se modificó un poco el readme.
 - Decisión y motivos: mantener `frontend/`, `backend/`, `docs/architecture/` y `.github/` como base para el MVP.
 - Responsable de la revisión: Braian.
+
+### AD-002 — Modelo de datos inicial del MVP
+
+- Fecha: 2026-10-03.
+- Issue: [#8 — Definir modelo de datos inicial](https://github.com/cbraian42/Edux/issues/8).
+- Estado: propuesta.
+- Contexto y problema: definir las entidades, atributos y relaciones del MVP, manteniendo coherencia con los casos de uso y separando la información docente de los resultados generados por IA.
+- Aporte de la IA:
+  - Organización del material proporcionado en [docs/functional-specification.md](docs/functional-specification.md) y [docs/data-model.md](docs/data-model.md).
+  - Revisión cruzada de ambos documentos y del alcance del issue.
+  - Identificación de diferencias sobre el historial considerado en los análisis, agenda, cursos inactivos y representación de valores vacíos.
+  - Propuesta de conservar `generated_at` y eliminar `analyzed_until` al aclararse que la fecha requerida corresponde a la generación del último análisis.
+- Alternativas consideradas:
+  - Temas como entidad independiente o como colección dentro del registro de clase.
+  - Historial individual persistido como texto acumulativo o reconstruido desde observaciones.
+  - Análisis del curso por períodos seleccionados o sobre todo el historial disponible.
+  - Identidad global del alumno o registro privado por docente; la identidad compartida se discutió como posible evolución futura.
+- Verificación realizada:
+  - Contraste documental con los casos de uso y criterios de aceptación del issue.
+  - Revisión de entidades, relaciones, restricciones y diagrama ER.
+  - Comprobación de estructura Markdown y delimitación de bloques de código.
+  - No se implementaron ni probaron tablas, migraciones o lógica de aplicación.
+- Decisión y motivos:
+  - Mantener alumnos privados por docente, vinculables a varios cursos de esa misma docente.
+  - Separar el curso recurrente del encuentro concreto, con un único registro docente por encuentro.
+  - Conservar el texto original y distinguirlo de los temas y observaciones derivados por IA.
+  - Guardar los temas como colección y reconstruir el historial individual desde las observaciones, consolidando como máximo una por alumno y encuentro.
+  - Representar categorías sin información mediante colecciones vacías, observación general nula o ausencia de filas de observaciones individuales, según corresponda.
+  - Analizar bajo demanda todo el historial disponible del curso y conservar únicamente el último resultado con su fecha de generación.
+  - Excluir agenda detallada y sesiones futuras precreadas; desactivar un curso conserva su información histórica.
+  - Diferir tipos físicos, migraciones y detalles de implementación para las tareas posteriores.
+- Responsable de la revisión: Milagros; pendiente de aprobación mediante revisión del PR.
