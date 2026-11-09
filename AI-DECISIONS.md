@@ -72,7 +72,20 @@ Este archivo registra decisiones técnicas en las que se utilizó asistencia de 
 - Contexto y problema: hace falta una base de Node.js y TypeScript para desarrollar funciones Lambda sin definir todavía el despliegue ni la lógica de negocio.
 - Aporte de la IA: se propuso configurar TypeScript, ESLint, scripts de trabajo y una función `health` mínima con respuesta compatible con API Gateway HTTP API.
 - Alternativas consideradas: incorporar desde ahora un framework o herramientas de despliegue.
-- Verificación realizada: `npm run typecheck`, `npm run lint`, `npm run build` e invocación local del handler compilado.
+- Verificación realizada: `npm run typecheck`, `npm run lint`, `npm run build`¿ e invocación local del handler compilado.
 - Decisión y motivos: Se mantuvo una estructura sin dependencias de ejecución hasta definir la estrategia de infraestructura. La estructura mínima permite sumar funciones sin comprometer todavía la configuración de AWS.
 - Responsable de la revisión: Braian.
 
+### AD-004 — Estandarización de reglas para agentes de IA (AGENTS.md)
+
+- Fecha: 2026-10-04 (actualizado 2026-10-06).
+- Issue o pull request: [#12 Estandarizar instrucciones para agentes de IA](https://github.com/cbraian42/Edux/issues/12).
+- Estado: propuesta.
+- Contexto y problema: Al utilizar múltiples asistentes de IA (Codex, Antigravity, etc.) para el desarrollo de EduX, se requiere unificar criterios sobre fuentes de verdad, límites de arquitectura cloud, convenciones de nombrado de ramas, reglas de revisión cruzada y restricciones operativas para evitar deuda técnica.
+- Aporte de la IA: Se redactó el documento base `AGENTS.md` incorporando las fuentes de verdad actualizadas (`docs/data-model.md`, `docs/functional-specification.md`), la diferenciación de `AI-DECISIONS.md` como bitácora académica/trazabilidad, la convención de ramas `<tipo>/<issue>-<descripcion>` y la gobernanza de aprobación obligatoria de pares.
+- Alternativas consideradas: 
+  - Reglas dispersas por herramienta (`.cursorrules`, prompts manuales). Se descartó por redundancia y riesgo de desactualización.
+  - Dejar las convenciones únicamente en el `README.md`. Se descartó para no sobrecargar el archivo y proveer un punto de anclaje específico para agentes.
+- Verificación realizada: Revisión contra los criterios de aceptación del issue #12 y revisión cruzada de feedback recibido en PR #14.
+- Decisión y motivos: Adoptar `AGENTS.md` como estándar central versionado en la raíz del repositorio, complementable pero no anulable por configuraciones específicas de cada herramienta.
+- Responsable de la revisión: Braian.
