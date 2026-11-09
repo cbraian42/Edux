@@ -61,6 +61,10 @@ Los directorios todavía vacíos contienen archivos `.gitkeep` temporales para q
 
 El [README del backend](backend/README.md) explica los requisitos, la instalación con `npm ci`, los scripts de desarrollo y validación, y cómo invocar localmente la función Lambda mínima.
 
+## Estrategia de infraestructura AWS
+
+La [propuesta del issue #10](docs/architecture/infrastructure-strategy.md) compara SAM, CDK y Terraform y propone adoptar AWS SAM para el MVP, pendiente de revisión del equipo. Incluye el flujo de desarrollo local/cloud, la estructura futura de `infra/` y un [ejemplo SAM ilustrativo](infra/examples/health.template.yaml), sin validación con SAM CLI ni despliegue de recursos.
+
 ## Forma de trabajo
 
 - Tomar tareas de los issues y gestionar su avance en GitHub Projects.
