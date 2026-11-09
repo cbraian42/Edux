@@ -89,3 +89,15 @@ Este archivo registra decisiones técnicas en las que se utilizó asistencia de 
 - Verificación realizada: Revisión contra los criterios de aceptación del issue #12 y revisión cruzada de feedback recibido en PR #14.
 - Decisión y motivos: Adoptar `AGENTS.md` como estándar central versionado en la raíz del repositorio, complementable pero no anulable por configuraciones específicas de cada herramienta.
 - Responsable de la revisión: Braian.
+
+### AD-005 — Estrategia de infraestructura AWS con SAM
+
+- Fecha: 2026-11-09.
+- Issue: [#10 — Definir estrategia de infraestructura AWS](https://github.com/cbraian42/Edux/issues/10).
+- Estado: propuesta; pendiente de revisión cruzada mediante PR.
+- Contexto y problema: seleccionar IaC reproducible y versionable para el MVP educativo, sin desplegar infraestructura ni definir IAM definitivo en este issue.
+- Aporte de la IA: comparación de SAM, CDK y Terraform; propuesta de adopción de SAM; documentación del flujo local/cloud y ejemplo comentado de HTTP API, Lambda health y logs.
+- Alternativas consideradas: SAM por su foco serverless; CDK por su uso de TypeScript; Terraform por su aplicabilidad a varios proveedores y el aprendizaje de gestión del estado.
+- Verificación realizada: contraste con el issue, documentación vigente del proyecto, handler existente y fuentes oficiales enlazadas en `docs/architecture/infrastructure-strategy.md`; `git diff --check`, typecheck, lint y build del backend sin errores. El ejemplo no fue validado con SAM CLI, ejecutado con Docker ni desplegado en AWS; SAM CLI no está disponible en el entorno de trabajo.
+- Decisión y motivos: proponer SAM para priorizar el aprendizaje de AWS y el recorrido funcional del MVP. Ubicar la configuración futura en `infra/`, manteniendo el ejemplo en `infra/examples/`. Diferir Cognito mientras se desarrollan reglas locales con identidad de prueba; exigir autenticación e aislamiento verificados antes de exponer rutas de negocio en AWS. Supabase y Vercel mantienen sus flujos propios.
+- Responsable de la revisión: Milagros (`@MilaneKatz`); pendiente de aprobación formal mediante revisión del PR. Braian autorizó publicar la propuesta.
