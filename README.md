@@ -61,6 +61,10 @@ Los directorios todavía vacíos contienen archivos `.gitkeep` temporales para q
 
 El [README del backend](backend/README.md) explica los requisitos, la instalación con `npm ci`, los scripts de desarrollo y validación, y cómo invocar localmente la función Lambda mínima.
 
+## Base de datos de desarrollo
+
+La [guía de Supabase](supabase/README.md) describe la preparación de PostgreSQL de desarrollo, el esquema inicial, las migraciones y los datos ficticios. La conexión del backend se implementará por separado en el issue #18.
+
 ## Forma de trabajo
 
 - Tomar tareas de los issues y gestionar su avance en GitHub Projects.
