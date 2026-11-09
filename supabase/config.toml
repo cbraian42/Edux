@@ -1,0 +1,13 @@
+# Identificador del entorno local; no es el project ref del proyecto cloud.
+project_id = "edux"
+
+[db]
+major_version = 17
+
+# Los datos ficticios se cargan manualmente y solo en desarrollo.
+[db.seed]
+enabled = false
+
+# Cognito será el proveedor de autenticación; esto solo afecta al stack local.
+[auth]
+enabled = false

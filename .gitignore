@@ -29,6 +29,8 @@ pnpm-debug.log*
 # Herramientas locales
 .vercel/
 .aws-sam/
+supabase/.temp/
+supabase/.branches/
 .idea/
 .vscode/
 
