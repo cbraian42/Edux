@@ -1,0 +1,53 @@
+# EJEMPLO ILUSTRATIVO: pendiente de validación con SAM CLI, ejecución y despliegue.
+# Decisión y explicación: docs/architecture/infrastructure-strategy.md.
+# No representa la infraestructura completa ni configura autenticación.
+AWSTemplateFormatVersion: '2010-09-09'
+Transform: AWS::Serverless-2016-10-31
+Description: Ejemplo educativo de HTTP API y Lambda health para EDUX.
+
+Resources:
+  HealthApi:
+    Type: AWS::Serverless::HttpApi
+    Properties:
+      StageName: dev
+
+  HealthFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      # Ruta relativa a infra/examples/, no al directorio de la terminal.
+      CodeUri: ../../backend/
+      # esbuild produciría handler.mjs y conservaría la exportación handler.
+      Handler: handler.handler
+      Runtime: nodejs22.x
+      Architectures:
+        - x86_64
+      MemorySize: 128
+      Timeout: 5
+      # SAM genera el rol básico de logs; no hay permisos de negocio.
+      Events:
+        GetHealth:
+          Type: HttpApi
+          Properties:
+            ApiId:
+              Ref: HealthApi
+            Path: /health
+            Method: GET
+    Metadata:
+      # Requiere preparar esbuild en la tarea de implementación local.
+      BuildMethod: esbuild
+      BuildProperties:
+        EntryPoints:
+          - src/functions/health/handler.ts
+        Format: esm
+        OutExtension:
+          - .js=.mjs
+        Target: es2022
+        Minify: false
+        Sourcemap: false
+
+  HealthLogGroup:
+    Type: AWS::Logs::LogGroup
+    Properties:
+      LogGroupName:
+        Fn::Sub: /aws/lambda/${HealthFunction}
+      RetentionInDays: 7
