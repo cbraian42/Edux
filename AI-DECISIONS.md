@@ -112,3 +112,27 @@ Este archivo registra decisiones técnicas en las que se utilizó asistencia de 
 - Verificación realizada: migración, pruebas SQL con rollback, seed y rechazo de seed repetido en PGlite 0.3.14/PostgreSQL 17.5 embebido con roles simulados; migración `20261109203525_create_initial_schema` aplicada mediante MCP al proyecto `rjmvyfyajfxvbshdeznx` (`edux-dev`, `sa-east-1`); las mismas pruebas SQL pasaron en PostgreSQL 17.11 de Supabase sin dejar datos. Se verificaron las ocho tablas, el historial de migraciones y los permisos. El asesor de seguridad reportó ocho avisos informativos de RLS sin políticas, coherentes con el bloqueo inicial. El seed no fue cargado en cloud. La CLI y el stack Docker local no se ejecutaron.
 - Decisión y motivos: UUID, nombres snake_case, día ISO 1–7, horas locales sin zona, fechas `date` y marcas temporales `timestamptz`. Colecciones vacías explícitas y observación general nullable; `generated_at` debe proporcionarse. RLS habilitada sin políticas y permisos de las tablas revocados a roles de la Data API, incluido `service_role`, hasta definir el acceso del backend en #18. El aislamiento por docente y las verificaciones de pertenencia siguen pendientes en #19/casos de uso; las claves foráneas por sí solas no los implementan.
 - Responsable de la revisión: Milagros (`@MilaneKatz`); pendiente de aprobación formal mediante revisión del PR. Braian autorizó publicar la implementación. La creación del proyecto no equivale a aprobación del esquema físico.
+
+### AD-007 — Inicialización del frontend con Next.js, TypeScript y Tailwind CSS
+
+- Fecha: 2026-11-24.
+- Issue o pull request: [#3 — Inicializar frontend Next.js](https://github.com/cbraian42/Edux/issues/3).
+- Estado: propuesta; pendiente de revisión cruzada mediante PR.
+- Contexto y problema: Se requiere inicializar el cliente web de EduX dentro de `frontend/` utilizando Next.js y TypeScript, estableciendo una base limpia, desacoplada y lista para evolucionar hacia el MVP, con una estética minimalista en tonos azules, celestes, blancos y verdes acorde a la identidad pedagógica y tecnológica del proyecto.
+- Aporte de la IA:
+  - Inicialización de la aplicación Next.js 16 (App Router) y React 19 con TypeScript en modo estricto.
+  - Configuración de Tailwind CSS v4 con tipografía sans del sistema para garantizar compilaciones limpias y reproducibles sin dependencias externas de fuentes en tiempo de build.
+  - Implementación del sistema de diseño minimalista con paleta institucional pedagógica (azules profundos para jerarquía y acciones principales, celestes para temas/extracciones IA, blancos/slate claro para tarjetas y fondos, y verdes/emerald para estados activos y recomendaciones pedagógicas).
+  - Creación de interfaces de tipos TypeScript de dominio (`Teacher`, `Course`, `Student`, `Meeting`, `CourseAnalysis`, `StudentObservation`) alineadas con `docs/data-model.md` y `docs/functional-specification.md`.
+  - Desarrollo de las vistas iniciales y componentes desacoplados: Dashboard (`/`), catálogo y detalle de comisiones (`/courses`, `/courses/[id]`), directorio e historial pedagógico individual de alumnos (`/students`, `/students/[id]`), formulario de bitácora docente en lenguaje natural con previsualización interactiva de extracción de IA (`/meetings/new`), y análisis general bajo demanda del curso (`/analysis`).
+  - Redacción del `frontend/README.md` con instrucciones de desarrollo local, comandos de verificación y correspondencia con los casos de uso (CU-01 a CU-07).
+- Alternativas consideradas:
+  - Cargar fuentes externas desde Google Fonts (`next/font/google`). Se descartó tras verificar que fallaba la compilación offline/sandboxed al no poder resolver dominios externos durante el build. Se adoptó una pila de fuentes sans del sistema moderna y consistente.
+  - Crear una única página vacía. Se prefirió dotar a la inicialización de la arquitectura modular de rutas, componentes y mock data representativos del dominio para validar de punta a punta la navegación, la estética solicitada y la tipificación estricta.
+- Verificación realizada:
+  - `npm run typecheck` (`tsc --noEmit`): finalizado sin errores (0 errores de tipado).
+  - `npm run lint` (`eslint`): finalizado sin advertencias ni errores.
+  - `npm run build` (`next build` con Turbopack): compilación exitosa y generación de páginas estáticas.
+- Decisión y motivos: Mantener Next.js con App Router, TypeScript estricto, Tailwind CSS e iconografía con `lucide-react` para una base ligera, moderna y preparada para su futuro despliegue en Vercel y posterior conexión con la API serverless y Amazon Bedrock.
+- Responsable de la revisión: Braian (`@cbraian42`); pendiente de aprobación formal mediante revisión cruzada de Pull Request.
+

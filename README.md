@@ -57,6 +57,10 @@ El flujo previsto es **docente → cliente web → API → lógica de negocio �
 
 Los directorios todavía vacíos contienen archivos `.gitkeep` temporales para que Git los conserve hasta que tengan contenido propio.
 
+## Frontend local
+
+El [README del frontend](frontend/README.md) describe la inicialización del cliente web con Next.js y Tailwind CSS, la paleta de colores y componentes minimalistas, cómo ejecutarlo localmente con `npm run dev` y los scripts de validación (`typecheck`, `lint` y `build`).
+
 ## Backend local
 
 El [README del backend](backend/README.md) explica los requisitos, la instalación con `npm ci`, los scripts de desarrollo y validación, y cómo invocar localmente la función Lambda mínima.
