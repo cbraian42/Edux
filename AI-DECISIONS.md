@@ -89,3 +89,15 @@ Este archivo registra decisiones técnicas en las que se utilizó asistencia de 
 - Verificación realizada: Revisión contra los criterios de aceptación del issue #12 y revisión cruzada de feedback recibido en PR #14.
 - Decisión y motivos: Adoptar `AGENTS.md` como estándar central versionado en la raíz del repositorio, complementable pero no anulable por configuraciones específicas de cada herramienta.
 - Responsable de la revisión: Braian.
+
+### AD-006 — Esquema inicial de PostgreSQL en Supabase
+
+- Fecha: 2026-11-09.
+- Issue: [#9 — Configurar proyecto Supabase](https://github.com/cbraian42/Edux/issues/9).
+- Estado: propuesta de implementación física; pendiente de revisión cruzada mediante PR. Braian autorizó crear `edux-dev` en `cbraian42's Org`.
+- Contexto y problema: preparar persistencia de desarrollo antes de implementar la conexión del backend del #18; mantener el modelo aprobado en #8 sin incorporar Supabase Auth.
+- Aporte de la IA: traducción de las ocho entidades a DDL, migración versionada, configuración de ejemplo sin secretos, seed ficticio opcional, pruebas de restricciones y guía de preparación/mantenimiento.
+- Alternativas consideradas: arrays nativos `text[]` frente a JSONB para colecciones de textos; estado mediante `text` con CHECK frente a enum; borrado restringido frente a cascadas. Se eligieron arrays, CHECK y borrado restringido por su simplicidad y para preservar referencias históricas.
+- Verificación realizada: migración, pruebas SQL con rollback, seed y rechazo de seed repetido en PGlite 0.3.14/PostgreSQL 17.5 embebido con roles simulados; migración `20261109203525_create_initial_schema` aplicada mediante MCP al proyecto `rjmvyfyajfxvbshdeznx` (`edux-dev`, `sa-east-1`); las mismas pruebas SQL pasaron en PostgreSQL 17.11 de Supabase sin dejar datos. Se verificaron las ocho tablas, el historial de migraciones y los permisos. El asesor de seguridad reportó ocho avisos informativos de RLS sin políticas, coherentes con el bloqueo inicial. El seed no fue cargado en cloud. La CLI y el stack Docker local no se ejecutaron.
+- Decisión y motivos: UUID, nombres snake_case, día ISO 1–7, horas locales sin zona, fechas `date` y marcas temporales `timestamptz`. Colecciones vacías explícitas y observación general nullable; `generated_at` debe proporcionarse. RLS habilitada sin políticas y permisos de las tablas revocados a roles de la Data API, incluido `service_role`, hasta definir el acceso del backend en #18. El aislamiento por docente y las verificaciones de pertenencia siguen pendientes en #19/casos de uso; las claves foráneas por sí solas no los implementan.
+- Responsable de la revisión: Milagros (`@MilaneKatz`); pendiente de aprobación formal mediante revisión del PR. Braian autorizó publicar la implementación. La creación del proyecto no equivale a aprobación del esquema físico.
